@@ -1,4 +1,4 @@
-# Unity Project Setup (PLEASE READ) 
+# Unity Project Setup (PLEASE READ)
 
 Before you clone the team repo, follow these instructions:
 
