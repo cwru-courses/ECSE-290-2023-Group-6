@@ -1,3 +1,4 @@
+# Adventures of Floppy Fish
 # Unity Project Setup (PLEASE READ)
 
 Before you clone the team repo, follow these instructions:
