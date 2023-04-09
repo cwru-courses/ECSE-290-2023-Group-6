@@ -11,23 +11,24 @@ public class SeagullController : MonoBehaviour
     public float returnSpeed = 1;
 
     private PolygonCollider2D detector;
-    private CircleCollider2D talons;
+    private SeagullTalons talons;
+    public Vector3 curTarget;
 
-    private enum State
+    public enum State
     {
         searching,
         attacking,
         carrying,
         returning
     }
-    private State state;
+    public State state;
 
 
     void Start()
     {
         state = State.searching;
         detector = GetComponent<PolygonCollider2D>();
-        talons = GetComponent<CircleCollider2D>();
+        talons = GetComponentInChildren<SeagullTalons>();
     }
 
     void Update()
@@ -52,32 +53,76 @@ public class SeagullController : MonoBehaviour
         }
     }
 
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Player" && state == State.searching)
+        {
+            state = State.attacking;
+        }
+    }
+
+    void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Player" && state == State.attacking)
+        {
+            curTarget = other.transform.position - talons.transform.localPosition;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            state = State.returning;
+        }
+    }
+
     // Flies back and forth around home. If fish enters detector, set state to attack
     void SearchingAction()
     {
-        
+        if (Vector3.Distance(transform.position, curTarget) < 0.1f || curTarget == Vector3.zero)
+        {
+            curTarget = AroundHome();
+        }
+
+        MoveToPoint(curTarget, idleSpeed);
     }
 
     // Flies toward fish position. If fish enters talons, set state to carry
     void AttackingAction()
     {
-
+        MoveToPoint(curTarget, attackSpeed);
     }
 
     // Flies to the left. If fish escapes or the level beginning is reached, set state to return
     void CarryingAction()
     {
-
+        MoveToPoint(curTarget, attackSpeed);
+        if (Vector3.Distance(transform.position, curTarget) < 0.1f)
+        {
+            state = State.returning;
+        }
     }
 
     // Disables talons, flies back to home. On reaching home, set state to searching and re-enable talons
     void ReturningAction()
     {
-
+        MoveToPoint(home.position, returnSpeed);
+        talons.Disengage();
+        if (Vector3.Distance(transform.position, home.position) < 0.1f)
+        {
+            state = State.searching;
+            talons.Engage();
+        }
     }
 
     void MoveToPoint(Vector3 target, float speed)
     {
+        transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
+    }
 
+    public Vector3 AroundHome()
+    {
+        return home.position + new Vector3(Random.Range(-searchRadius, searchRadius), Random.Range(-searchRadius, searchRadius), 0);
     }
 }
