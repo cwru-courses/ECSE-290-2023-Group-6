@@ -31,4 +31,9 @@ public class LevelManager : MonoBehaviour
     public void StopTimer() {
         isStopped = true;
     }
+
+    public void AddTime()
+    {
+        timeElapsed += 15f;
+    }
 }
