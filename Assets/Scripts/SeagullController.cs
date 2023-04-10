@@ -84,7 +84,7 @@ public class SeagullController : MonoBehaviour
     // Flies back and forth around home. If fish enters detector, set state to attack
     void SearchingAction()
     {
-        Seagull.GetComponent<SpriteRenderer>().sprite = attacking;
+        Seagull.GetComponent<SpriteRenderer>().sprite = flying;
         if (Vector3.Distance(transform.position, curTarget) < 0.1f || curTarget == Vector3.zero)
         {
             curTarget = AroundHome();
