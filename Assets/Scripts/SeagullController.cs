@@ -9,6 +9,10 @@ public class SeagullController : MonoBehaviour
     public float idleSpeed = 1;
     public float attackSpeed = 1;
     public float returnSpeed = 1;
+    public GameObject Seagull;
+    public Sprite flying;
+    public Sprite attacking;
+
 
     private PolygonCollider2D detector;
     private SeagullTalons talons;
@@ -80,6 +84,7 @@ public class SeagullController : MonoBehaviour
     // Flies back and forth around home. If fish enters detector, set state to attack
     void SearchingAction()
     {
+        Seagull.GetComponent<SpriteRenderer>().sprite = flying;
         if (Vector3.Distance(transform.position, curTarget) < 0.1f || curTarget == Vector3.zero)
         {
             curTarget = AroundHome();
@@ -91,12 +96,14 @@ public class SeagullController : MonoBehaviour
     // Flies toward fish position. If fish enters talons, set state to carry
     void AttackingAction()
     {
+        Seagull.GetComponent<SpriteRenderer>().sprite = attacking;
         MoveToPoint(curTarget, attackSpeed);
     }
 
     // Flies to the left. If fish escapes or the level beginning is reached, set state to return
     void CarryingAction()
     {
+        Seagull.GetComponent<SpriteRenderer>().sprite = attacking;
         MoveToPoint(curTarget, attackSpeed);
         if (Vector3.Distance(transform.position, curTarget) < 0.1f)
         {
@@ -109,6 +116,7 @@ public class SeagullController : MonoBehaviour
     {
         MoveToPoint(home.position, returnSpeed);
         talons.Disengage();
+        Seagull.GetComponent<SpriteRenderer>().sprite = flying;
         if (Vector3.Distance(transform.position, home.position) < 0.1f)
         {
             state = State.searching;
