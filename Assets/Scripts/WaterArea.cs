@@ -294,7 +294,7 @@ namespace Gamekit2D
 
             new WaitForSeconds(2f);
             //wins
-          //  Console.Write("Level complete");
+            LevelManager.instance.StopTimer();
 
 
         }
