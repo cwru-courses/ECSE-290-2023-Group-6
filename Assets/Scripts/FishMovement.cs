@@ -5,7 +5,7 @@ using UnityEngine;
 public class FishMovement : MonoBehaviour
 {
     public float maxLaunchForce = 100f;
-    public bool allowLaunch = true;
+    public bool allowInput = true;
 
     private Vector2 clickStart = Vector2.zero;
     private LineRenderer arrowLine;
@@ -20,8 +20,8 @@ public class FishMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (allowLaunch) {
-            // Handle mouse input
+        if (allowInput) {
+            // Handle mouse input for launching
             if (Input.GetMouseButtonDown(0)) // Click down
             {
                 clickStart = Camera.main.ScreenToWorldPoint(Input.mousePosition);
