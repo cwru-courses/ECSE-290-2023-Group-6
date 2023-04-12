@@ -5,6 +5,7 @@ using UnityEngine;
 public class FishMovement : MonoBehaviour
 {
     public float maxLaunchForce = 100f;
+    public bool allowLaunch = true;
 
     private Vector2 clickStart = Vector2.zero;
     private LineRenderer arrowLine;
@@ -19,23 +20,28 @@ public class FishMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Handle mouse input
-        if (Input.GetMouseButtonDown(0)) // Click down
-        {
-            clickStart = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            arrowLine.enabled = true;
-            UpdateArrow(transform.position, transform.position);
-        } else if (Input.GetMouseButtonUp(0)) // Click up
-        {
-            Vector2 clickEnd = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector2 direction = clickEnd - clickStart;
-            GetComponent<Rigidbody2D>().AddForce(direction * maxLaunchForce);
+        if (allowLaunch) {
+            // Handle mouse input
+            if (Input.GetMouseButtonDown(0)) // Click down
+            {
+                clickStart = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                arrowLine.enabled = true;
+                UpdateArrow(transform.position, transform.position);
+            } else if (Input.GetMouseButtonUp(0)) // Click up
+            {
+                Vector2 clickEnd = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                Vector2 direction = clickEnd - clickStart;
+                GetComponent<Rigidbody2D>().AddForce(direction * maxLaunchForce);
+                arrowLine.enabled = false;
+            } else if (Input.GetMouseButton(0)) // Click held
+            {
+                Vector2 clickEnd = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                Vector2 direction = clickEnd - clickStart;
+                UpdateArrow(transform.position, (Vector2)transform.position + direction);
+            }
+        } else {
+            // Clear arrow in case it was left on
             arrowLine.enabled = false;
-        } else if (Input.GetMouseButton(0)) // Click held
-        {
-            Vector2 clickEnd = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector2 direction = clickEnd - clickStart;
-            UpdateArrow(transform.position, (Vector2)transform.position + direction);
         }
     }
 
