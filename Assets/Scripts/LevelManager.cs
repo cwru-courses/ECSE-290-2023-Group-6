@@ -7,6 +7,8 @@ public class LevelManager : MonoBehaviour
 {
     public static LevelManager instance;
     public TextMeshProUGUI timerText;
+    public GameObject winScreen;
+    public GameObject loseScreen;
 
     private float timeElapsed = 0f;
     private bool isStopped = false;
@@ -30,6 +32,26 @@ public class LevelManager : MonoBehaviour
 
     public void StopTimer() {
         isStopped = true;
+    }
+
+    public void Win() {
+        StopTimer();
+        winScreen.SetActive(true);
+        Debug.Log("You win!");
+    }
+
+    public void Lose() {
+        StopTimer();
+        loseScreen.SetActive(true);
+        Debug.Log("You lose!");
+    }
+
+    public void GoToScene(string sceneName) {
+        UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
+    }
+
+    public void Restart() {
+        GoToScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
     }
 
     public void AddTime()

@@ -343,6 +343,13 @@ namespace Gamekit2D
                 int idx = touchedColumnIndices[i];
                 m_Columns[idx].velocity -= testForce;
             }
+
+            // Test for player collision
+            if (collision.gameObject.tag == "Player")
+            {
+                //wins
+                LevelManager.instance.Win();
+            }
         }
     }
 
