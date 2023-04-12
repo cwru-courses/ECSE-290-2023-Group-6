@@ -6,23 +6,13 @@ using UnityEngine;
 public class BubblePowerup : MonoBehaviour
 {
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    public float refillAmount = 0.5f;
 
     public void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Player")
         {
-            LevelManager.instance.AddTime();
+            WaterMeter.instance.AddWater(refillAmount);
             Destroy(this.gameObject);
         }
     }
