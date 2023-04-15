@@ -5,6 +5,7 @@ using UnityEngine;
 public class FishMovement : MonoBehaviour
 {
     public float maxLaunchForce = 100f;
+    public float minY = -4.5f;
     public bool allowInput = true;
 
     private Vector2 clickStart = Vector2.zero;
@@ -42,6 +43,11 @@ public class FishMovement : MonoBehaviour
         } else {
             // Clear arrow in case it was left on
             arrowLine.enabled = false;
+        }
+
+        // Die if we fall off the bottom of the screen
+        if (transform.position.y < minY) {
+            LevelManager.instance.Lose();
         }
     }
 

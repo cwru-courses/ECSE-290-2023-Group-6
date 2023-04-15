@@ -26,7 +26,7 @@ public class DialogManager : MonoBehaviour
     public void Say(string name, string text)
     {
         GameObject dialog = Instantiate(dialogPrefab, transform);
-        dialog.transform.parent = transform;
+        dialog.transform.SetParent(transform);
         dialog.GetComponent<DialogBox>().speakerImage.sprite = speakerSprites[System.Array.IndexOf(speakerNames, name)];
         dialog.GetComponent<DialogBox>().text.text = text;
     }

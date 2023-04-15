@@ -838,7 +838,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 065629ce9e648ff48a0ff06ada79dd5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxLaunchForce: 150
+  maxLaunchForce: 170
+  minY: -4.5
+  allowInput: 1
 --- !u!120 &7060169823898346461
 LineRenderer:
   m_ObjectHideFlags: 0
