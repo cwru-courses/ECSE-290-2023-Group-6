@@ -30,7 +30,7 @@ public class SeagullController : MonoBehaviour
         returning
     }
     public State state;
-    private int pathIndex = 0;
+    private int pathIndex = 1;
 
 
     void Start()
@@ -109,7 +109,7 @@ public class SeagullController : MonoBehaviour
         if (Vector3.Distance(transform.position, curTarget) < 0.1f)
         {
             state = State.carrying;
-            pathIndex = 0;
+            pathIndex = 1;
         }
     }
 
@@ -134,7 +134,7 @@ public class SeagullController : MonoBehaviour
         {
             state = State.searching;
             talons.Engage();
-            pathIndex = 0;
+            pathIndex = 1;
         }
     }
 
@@ -154,6 +154,6 @@ public class SeagullController : MonoBehaviour
 
     public Vector3 AroundHome()
     {
-        return home.position + new Vector3(Random.Range(-searchRadius, searchRadius), Random.Range(-searchRadius, searchRadius), 0);
+        return home.position + new Vector3(Random.Range(-searchRadius, searchRadius), 0, 0);
     }
 }
