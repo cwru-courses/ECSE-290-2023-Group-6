@@ -44,7 +44,7 @@ public class LevelManager : MonoBehaviour
     public void Lose() {
         StopTimer();
         loseScreen.SetActive(true);
-        FindObjectOfType<FishMovement>().allowInput = false; // This is a Find in the event that we want to add more fish
+        FishMovement.instance.allowInput = false;
         Debug.Log("You lose!");
     }
 

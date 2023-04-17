@@ -4,12 +4,26 @@ using UnityEngine;
 
 public class FishMovement : MonoBehaviour
 {
+    public static FishMovement instance;
     public float maxLaunchForce = 100f;
     public float minY = -4.5f;
     public bool allowInput = true;
 
     private Vector2 clickStart = Vector2.zero;
     private LineRenderer arrowLine;
+    private bool canLaunch = true;
+
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -21,12 +35,13 @@ public class FishMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (allowInput) {
+        if (allowInput && canLaunch) {
             // Handle mouse input for launching
             if (Input.GetMouseButtonDown(0)) // Click down
             {
                 clickStart = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 arrowLine.enabled = true;
+                canLaunch = false;
                 UpdateArrow(transform.position, transform.position);
             } else if (Input.GetMouseButtonUp(0)) // Click up
             {
@@ -38,6 +53,8 @@ public class FishMovement : MonoBehaviour
             {
                 Vector2 clickEnd = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 Vector2 direction = clickEnd - clickStart;
+                if (direction.magnitude > 3f)
+                    direction = direction.normalized * 3f;
                 UpdateArrow(transform.position, (Vector2)transform.position + direction);
             }
         } else {
@@ -63,5 +80,10 @@ public class FishMovement : MonoBehaviour
             , Vector3.Lerp(origin, target, 0.999f - PercentHead)
             , Vector3.Lerp(origin, target, 1 - PercentHead)
             , target });
+    }
+
+    public void AllowLaunch()
+    {
+        canLaunch = true;
     }
 }
