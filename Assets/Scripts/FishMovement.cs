@@ -9,7 +9,7 @@ public class FishMovement : MonoBehaviour
     public float minY = -4.5f;
     public bool allowInput = true;
 
-    private Vector2 clickStart = Vector2.zero;
+    private Vector2? clickStart = null;
     private LineRenderer arrowLine;
     private bool canLaunch = true;
 
@@ -35,26 +35,28 @@ public class FishMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (allowInput && canLaunch) {
+        if (allowInput) {
             // Handle mouse input for launching
-            if (Input.GetMouseButtonDown(0)) // Click down
+            if (Input.GetMouseButtonDown(0) && canLaunch) // Click down
             {
                 clickStart = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 arrowLine.enabled = true;
-                canLaunch = false;
                 UpdateArrow(transform.position, transform.position);
             } else if (Input.GetMouseButtonUp(0)) // Click up
             {
+                if (!clickStart.HasValue) return;
                 Vector2 clickEnd = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                Vector2 direction = clickEnd - clickStart;
+                Vector2 direction = clickEnd - clickStart.Value;
                 GetComponent<Rigidbody2D>().AddForce(direction * maxLaunchForce);
+                canLaunch = false;
                 arrowLine.enabled = false;
-            } else if (Input.GetMouseButton(0)) // Click held
+                clickStart = null;
+            } else if (Input.GetMouseButton(0) && clickStart.HasValue) // Click held
             {
                 Vector2 clickEnd = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                Vector2 direction = clickEnd - clickStart;
-                if (direction.magnitude > 3f)
-                    direction = direction.normalized * 3f;
+                Vector2 direction = clickEnd - clickStart.Value;
+                if (direction.magnitude > 8f)
+                    direction = direction.normalized * 8f;
                 UpdateArrow(transform.position, (Vector2)transform.position + direction);
             }
         } else {
@@ -70,6 +72,7 @@ public class FishMovement : MonoBehaviour
 
     void UpdateArrow(Vector2 origin, Vector2 target, float PercentHead = 0.1f)
     {
+        if (!canLaunch) return;
         arrowLine.widthCurve = new AnimationCurve(
             new Keyframe(0, 0.4f)
             , new Keyframe(0.999f - PercentHead, 0.4f)  // neck of arrow
