@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7060169822215078210}
   - component: {fileID: 7060169822215078220}
   - component: {fileID: 7060169822215078211}
+  - component: {fileID: 7060169824016566875}
   m_Layer: 0
   m_Name: fin2
   m_TagString: Untagged
@@ -169,9 +170,21 @@ SpringJoint2D:
   m_Anchor: {x: 0.050844576, y: 0.42497447}
   m_ConnectedAnchor: {x: 0.4399816, y: -0.693769}
   m_AutoConfigureDistance: 1
-  m_Distance: 0.114053234
+  m_Distance: 0.085619524
   m_DampingRatio: 0
   m_Frequency: 5
+--- !u!114 &7060169824016566875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7060169822215078215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e6b5481618bde74380c37b48a1e65b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7060169822737617829
 GameObject:
   m_ObjectHideFlags: 0
@@ -185,6 +198,7 @@ GameObject:
   - component: {fileID: 7060169822737617824}
   - component: {fileID: 7060169822737617826}
   - component: {fileID: 7060169822737617825}
+  - component: {fileID: 7060169824016566873}
   m_Layer: 0
   m_Name: fin1
   m_TagString: Untagged
@@ -341,9 +355,21 @@ SpringJoint2D:
   m_Anchor: {x: 0.6, y: -0.00000009822344}
   m_ConnectedAnchor: {x: -0.7856716, y: 0.6884905}
   m_AutoConfigureDistance: 1
-  m_Distance: 0.119596586
+  m_Distance: 0.09549613
   m_DampingRatio: 0
   m_Frequency: 5
+--- !u!114 &7060169824016566873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7060169822737617829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e6b5481618bde74380c37b48a1e65b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7060169823176000221
 GameObject:
   m_ObjectHideFlags: 0
@@ -355,7 +381,7 @@ GameObject:
   - component: {fileID: 7060169823176000222}
   m_Layer: 0
   m_Name: Floppy Fish
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -369,7 +395,7 @@ Transform:
   m_GameObject: {fileID: 7060169823176000221}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.75, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7060169823898346448}
@@ -392,6 +418,7 @@ GameObject:
   - component: {fileID: 7060169823800540716}
   - component: {fileID: 7060169823800540719}
   - component: {fileID: 7060169823800540718}
+  - component: {fileID: 7060169824016566876}
   m_Layer: 0
   m_Name: tail
   m_TagString: Untagged
@@ -560,9 +587,21 @@ SpringJoint2D:
   m_Anchor: {x: 0.43207446, y: 0.55979973}
   m_ConnectedAnchor: {x: -1.2848511, y: -1.1819291}
   m_AutoConfigureDistance: 1
-  m_Distance: 0.07821639
+  m_Distance: 0.060742386
   m_DampingRatio: 0
   m_Frequency: 5
+--- !u!114 &7060169824016566876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7060169823800540706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e6b5481618bde74380c37b48a1e65b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7060169823811132467
 GameObject:
   m_ObjectHideFlags: 0
@@ -661,9 +700,10 @@ GameObject:
   - component: {fileID: 7060169823898346451}
   - component: {fileID: 7060169823898346460}
   - component: {fileID: 7060169823898346461}
+  - component: {fileID: 7060169824016566874}
   m_Layer: 0
   m_Name: fishbody
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -940,3 +980,15 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!114 &7060169824016566874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7060169823898346455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e6b5481618bde74380c37b48a1e65b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
