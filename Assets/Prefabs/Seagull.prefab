@@ -26,8 +26,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4549936492156449780}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 48.4, y: 12.4, z: -0.025026476}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 4.715494, y: 8.657691, z: -0.16273841}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -129,11 +129,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61a64ad0e6be46645aba884cf52756c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  home: {fileID: 0}
+  path:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   searchRadius: 5
   idleSpeed: 2
   attackSpeed: 5
-  returnSpeed: 1
+  returnSpeed: 4
   Seagull: {fileID: 4549936492156449780}
   flying: {fileID: 21300000, guid: 1f3c0913a0519e746bcdcca2988e3c15, type: 3}
   attacking: {fileID: 21300000, guid: 92cc0f3df270822469490236a94248ea, type: 3}
