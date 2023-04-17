@@ -38,6 +38,7 @@ public class LevelManager : MonoBehaviour
     public void Win() {
         StopTimer();
         winScreen.SetActive(true);
+        FishMovement.instance.allowInput = false;
         Debug.Log("You win!");
     }
 
