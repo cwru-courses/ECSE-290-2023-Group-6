@@ -11,4 +11,12 @@ public class BodyPart : MonoBehaviour
             FishMovement.instance.AllowLaunch();
         }
     }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Floppable")
+        {
+            SoundManager.instance.Flop(collision.relativeVelocity.magnitude);
+        }
+    }
 }

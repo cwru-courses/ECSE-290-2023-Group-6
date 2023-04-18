@@ -22,6 +22,7 @@ public class LevelManager : MonoBehaviour
     }
 
     public void Update() {
+        if (!timerText) return;
         timeElapsed += isStopped ? 0 : Time.deltaTime;
         timerText.text = TimeText();
     }
@@ -55,6 +56,10 @@ public class LevelManager : MonoBehaviour
 
     public void Restart() {
         GoToScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+    }
+
+    public void Quit() {
+        Application.Quit();
     }
 
     public void AddTime()
