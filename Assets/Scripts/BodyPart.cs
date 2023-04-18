@@ -14,7 +14,7 @@ public class BodyPart : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Floppable")
+        if (SoundManager.instance != null && collision.gameObject.tag == "Floppable")
         {
             SoundManager.instance.Flop(collision.relativeVelocity.magnitude);
         }
