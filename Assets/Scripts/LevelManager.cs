@@ -7,11 +7,13 @@ public class LevelManager : MonoBehaviour
 {
     public static LevelManager instance;
     public TextMeshProUGUI timerText;
+    public TextMeshProUGUI bestTimeText;
     public GameObject winScreen;
     public GameObject loseScreen;
 
     private float timeElapsed = 0f;
     private bool isStopped = false;
+    private string CurrentSceneName() => UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
 
     void Awake() {
         if (instance == null) {
@@ -21,14 +23,21 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    public void Start() {
+        if (PlayerPrefs.HasKey(CurrentSceneName() + "_BestTime") && bestTimeText)
+            bestTimeText.text = "Best " + TimeText(PlayerPrefs.GetFloat(CurrentSceneName() + "_BestTime"));
+        else if (bestTimeText)
+            bestTimeText.text = "Best --:--";
+    }
+
     public void Update() {
         if (!timerText) return;
         timeElapsed += isStopped ? 0 : Time.deltaTime;
-        timerText.text = TimeText();
+        timerText.text = TimeText(timeElapsed);
     }
 
-    public string TimeText() {
-        return $"{timeElapsed/60:00}:{timeElapsed%60:00}";
+    public string TimeText(float time) {
+        return $"{time/60:00}:{time%60:00}";
     }
 
     public void StopTimer() {
@@ -40,6 +49,10 @@ public class LevelManager : MonoBehaviour
         StopTimer();
         winScreen.SetActive(true);
         FishMovement.instance.allowInput = false;
+
+        if (PlayerPrefs.GetFloat(CurrentSceneName() + "_BestTime", Mathf.Infinity) > timeElapsed)
+            PlayerPrefs.SetFloat(CurrentSceneName() + "_BestTime", timeElapsed);
+
         Debug.Log("You win!");
     }
 
@@ -55,7 +68,7 @@ public class LevelManager : MonoBehaviour
     }
 
     public void Restart() {
-        GoToScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+        GoToScene(CurrentSceneName());
     }
 
     public void Quit() {
