@@ -119,7 +119,9 @@ MonoBehaviour:
   speakerSprites:
   - {fileID: 21300000, guid: ba3e4a89e3058ef4bacbf025a16a8303, type: 3}
   - {fileID: 21300000, guid: 3d3f4046799b23a47b468deeedf99a4c, type: 3}
+  - {fileID: 21300000, guid: 0f061b4bd0275bc4eb60f2af31e7375a, type: 3}
   speakerNames:
   - Pelican
   - Floppy
+  - Michael Fu
   dialogPrefab: {fileID: 8607454337539717097, guid: f1b87978aa00b154f96f24305fda1672, type: 3}
