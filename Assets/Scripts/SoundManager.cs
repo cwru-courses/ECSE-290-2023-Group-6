@@ -7,6 +7,7 @@ public class SoundManager : MonoBehaviour
     public static SoundManager instance;
     public AudioSource flopSound;
     public AudioSource spitSound;
+    public AudioSource popSound;
 
     void Awake() {
         if (instance == null) {
@@ -34,5 +35,10 @@ public class SoundManager : MonoBehaviour
         spitSound.pitch = Random.Range(0.8f, 1.2f);
         spitSound.Stop();
         spitSound.Play();
+    }
+
+    public void Pop()
+    {
+        popSound.Play();
     }
 }
