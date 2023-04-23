@@ -7,11 +7,14 @@ public class FishMovement : MonoBehaviour
     public static FishMovement instance;
     public float maxLaunchForce = 100f;
     public float minY = -4.5f;
+    public ParticleSystem spitParticles;
     public bool allowInput = true;
+
 
     private Vector2? clickStart = null;
     private LineRenderer arrowLine;
     private bool canLaunch = true;
+    private float particleDefaultRotation;
 
     void Awake()
     {
@@ -30,6 +33,7 @@ public class FishMovement : MonoBehaviour
     {
         arrowLine = GetComponent<LineRenderer>();
         arrowLine.enabled = false;
+        particleDefaultRotation = spitParticles.shape.rotation.z;
     }
 
     // Update is called once per frame
@@ -58,6 +62,18 @@ public class FishMovement : MonoBehaviour
                 if (direction.magnitude > 8f)
                     direction = direction.normalized * 8f;
                 UpdateArrow(transform.position, (Vector2)transform.position + direction);
+            }
+
+            // Handle keyboard input for spitting
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                // Rotate the particle system to face the pointer
+                Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                Vector3 direction = mousePos - transform.position;
+                spitParticles.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
+                spitParticles.Play();
+                WaterMeter.instance.SubtractWater(0.1f);
+                SoundManager.instance.Spit();
             }
         } else {
             // Clear arrow in case it was left on
