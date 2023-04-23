@@ -13,7 +13,8 @@ public class BubblePowerup : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             WaterMeter.instance.AddWater(refillAmount);
-            SoundManager.instance.Pop();
+            if (SoundManager.instance != null)
+                SoundManager.instance.Pop();
             Destroy(this.gameObject);
         }
     }
