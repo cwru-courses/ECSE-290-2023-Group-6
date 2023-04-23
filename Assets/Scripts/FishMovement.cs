@@ -8,13 +8,13 @@ public class FishMovement : MonoBehaviour
     public float maxLaunchForce = 100f;
     public float minY = -4.5f;
     public ParticleSystem spitParticles;
+    public GameObject spitCollider;
     public bool allowInput = true;
 
 
     private Vector2? clickStart = null;
     private LineRenderer arrowLine;
     private bool canLaunch = true;
-    private float particleDefaultRotation;
 
     void Awake()
     {
@@ -33,7 +33,6 @@ public class FishMovement : MonoBehaviour
     {
         arrowLine = GetComponent<LineRenderer>();
         arrowLine.enabled = false;
-        particleDefaultRotation = spitParticles.shape.rotation.z;
     }
 
     // Update is called once per frame
@@ -67,13 +66,10 @@ public class FishMovement : MonoBehaviour
             // Handle keyboard input for spitting
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                // Rotate the particle system to face the pointer
-                Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                Vector3 direction = mousePos - transform.position;
-                spitParticles.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
                 spitParticles.Play();
                 WaterMeter.instance.SubtractWater(0.1f);
                 SoundManager.instance.Spit();
+                StartCoroutine(SpitCollision());
             }
         } else {
             // Clear arrow in case it was left on
@@ -99,6 +95,12 @@ public class FishMovement : MonoBehaviour
             , Vector3.Lerp(origin, target, 0.999f - PercentHead)
             , Vector3.Lerp(origin, target, 1 - PercentHead)
             , target });
+    }
+
+    public IEnumerator SpitCollision() {
+        spitCollider.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        spitCollider.SetActive(false);
     }
 
     public void AllowLaunch()

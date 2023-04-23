@@ -67,7 +67,9 @@ public class SeagullController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Player" && state == State.searching)
+        if (other.gameObject.tag == "Spit") {
+            state = State.returning;
+        } else if (other.gameObject.tag == "Player" && state == State.searching)
         {
             state = State.attacking;
         }
