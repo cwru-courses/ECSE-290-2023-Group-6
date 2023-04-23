@@ -43,6 +43,15 @@ public class WaterMeter : MonoBehaviour
         }
     }
 
+    public void SubtractWater(float amount)
+    {
+        realValue -= amount;
+        if (realValue < 0f)
+        {
+            realValue = 0f;
+        }
+    }
+
     public float GetWater()
     {
         return realValue;
