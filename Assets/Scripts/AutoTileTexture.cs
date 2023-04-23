@@ -20,7 +20,7 @@ public class AutoTileTexture : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        if (!Application.isEditor || Application.isPlaying)
+        //if (!Application.isEditor || Application.isPlaying)
         {
             Vector2 scaleVec = new Vector2(this.gameObject.transform.lossyScale.x / scale, this.gameObject.transform.lossyScale.y / scale);
             this.gameObject.GetComponent<Renderer>().material.SetTextureScale("_MainTex", scaleVec);
