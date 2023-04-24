@@ -72,6 +72,7 @@ public class SeagullController : MonoBehaviour
         } else if (other.gameObject.tag == "Player" && state == State.searching)
         {
             state = State.attacking;
+            SoundManager.instance.Caw();
         }
     }
 

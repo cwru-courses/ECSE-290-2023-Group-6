@@ -67,9 +67,9 @@ public class FishMovement : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 spitParticles.Play();
+                StartCoroutine(SpitCollision());
                 WaterMeter.instance.SubtractWater(0.1f);
                 SoundManager.instance.Spit();
-                StartCoroutine(SpitCollision());
             }
         } else {
             // Clear arrow in case it was left on

@@ -4,17 +4,12 @@ using UnityEngine;
 
 public class UrchinSpike : MonoBehaviour
 {
+    public float gripTime = 3f;
+    public float cooldown = 2f;
+
     private PointEffector2D grip;
     private float gripForce;
     private bool isGripping = false;
-    private UrchinSpike urchinSpike;
-
-    IEnumerator WaitToDisengage(float waitTime)
-    {
-        yield return new WaitForSeconds(waitTime);
-        Disengage();
-        isGripping = false;
-    }
 
     void Start()
     {
@@ -34,7 +29,15 @@ public class UrchinSpike : MonoBehaviour
     public void Engage()
     {
         grip.forceMagnitude = gripForce;
-        StartCoroutine(WaitToDisengage(5f));
+        StartCoroutine(WaitToDisengage());
+    }
+
+    IEnumerator WaitToDisengage()
+    {
+        yield return new WaitForSeconds(gripTime);
+        Disengage();
+        yield return new WaitForSeconds(cooldown);
+        isGripping = false;
     }
 
     public void Disengage()

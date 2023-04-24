@@ -8,6 +8,7 @@ public class PlayerCamera : MonoBehaviour
     public Transform followTransform;
     public float smoothSpeed = 0.5f;
     public float lowerBound = 0;
+    public GameObject pauseMenu;
 
     private Camera mainCam;
     private Vector3 newPos;
@@ -21,5 +22,9 @@ public class PlayerCamera : MonoBehaviour
     {
         newPos = new Vector3(followTransform.position.x, Math.Max(followTransform.position.y, lowerBound), this.transform.position.z);
         this.transform.position = Vector3.Lerp(this.transform.position, newPos, smoothSpeed);
+        if (Input.GetKeyDown(KeyCode.Escape) && FishMovement.instance.allowInput)
+        {
+            pauseMenu.SetActive(!pauseMenu.activeSelf);
+        }
     }
 }

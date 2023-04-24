@@ -8,6 +8,7 @@ public class SoundManager : MonoBehaviour
     public AudioSource flopSound;
     public AudioSource spitSound;
     public AudioSource popSound;
+    public AudioSource eagleSound;
 
     void Awake() {
         if (instance == null) {
@@ -40,5 +41,10 @@ public class SoundManager : MonoBehaviour
     public void Pop()
     {
         popSound.Play();
+    }
+
+    public void Caw()
+    {
+        eagleSound.Play();
     }
 }
