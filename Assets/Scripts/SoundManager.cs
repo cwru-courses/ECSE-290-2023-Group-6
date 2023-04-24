@@ -9,6 +9,9 @@ public class SoundManager : MonoBehaviour
     public AudioSource spitSound;
     public AudioSource popSound;
     public AudioSource eagleSound;
+    public AudioSource musicSource;
+    public List<AudioClip> music;
+    private int currentMusic = 0;
 
     void Awake() {
         if (instance == null) {
@@ -46,5 +49,25 @@ public class SoundManager : MonoBehaviour
     public void Caw()
     {
         eagleSound.Play();
+    }
+
+    public void PlayMusic(int index) {
+        if (index == currentMusic) return;
+        StartCoroutine(FadeToMusic(index));
+    }
+
+    IEnumerator FadeToMusic(int index) {
+        float startVolume = musicSource.volume;
+        for (float i = startVolume; i >= 0; i -= Time.deltaTime / 2f) {
+            musicSource.volume = i;
+            yield return new WaitForEndOfFrame();
+        }
+        musicSource.clip = music[index];
+        musicSource.Play();
+        currentMusic = index;
+        for (float i = 0; i <= startVolume; i += Time.deltaTime / 2f) {
+            musicSource.volume = i;
+            yield return new WaitForEndOfFrame();
+        }
     }
 }

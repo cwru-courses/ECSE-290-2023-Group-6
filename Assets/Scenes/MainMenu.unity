@@ -356,6 +356,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ad107cb9c1c6b142bb2bb20208b2f20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  switchToBgmIndex: -1
   timerText: {fileID: 0}
   bestTimeText: {fileID: 0}
   winScreen: {fileID: 0}
@@ -741,6 +742,10 @@ MonoBehaviour:
   spitSound: {fileID: 253372912}
   popSound: {fileID: 785146678}
   eagleSound: {fileID: 1289978467}
+  musicSource: {fileID: 1000391208}
+  music:
+  - {fileID: 8300000, guid: e434115f34f602b459c2cad73d4cd8ad, type: 3}
+  - {fileID: 8300000, guid: efe6f3dc6fbf53c48879a4bf06ee232f, type: 3}
 --- !u!1 &785146676
 GameObject:
   m_ObjectHideFlags: 0

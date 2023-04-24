@@ -6,6 +6,7 @@ using TMPro;
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager instance;
+    public int switchToBgmIndex = -1;
     public TextMeshProUGUI timerText;
     public TextMeshProUGUI bestTimeText;
     public GameObject winScreen;
@@ -28,6 +29,9 @@ public class LevelManager : MonoBehaviour
             bestTimeText.text = "Best " + TimeText(PlayerPrefs.GetFloat(CurrentSceneName() + "_BestTime"));
         else if (bestTimeText)
             bestTimeText.text = "Best --:--";
+
+        if (switchToBgmIndex >= 0)
+            SoundManager.instance.PlayMusic(switchToBgmIndex);
     }
 
     public void Update() {
