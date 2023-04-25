@@ -80,6 +80,12 @@ public class FishMovement : MonoBehaviour
         if (transform.position.y < minY) {
             LevelManager.instance.Lose();
         }
+
+        // Jump to last level when pressing F9 and alphanumeric 5
+        if (Input.GetKey(KeyCode.F9) && Input.GetKey(KeyCode.Alpha5))
+        {
+            LevelManager.instance.GoToScene("FinalLevel");
+        }
     }
 
     void UpdateArrow(Vector2 origin, Vector2 target, float PercentHead = 0.1f)
