@@ -9,6 +9,7 @@ public class WaterMeter : MonoBehaviour
     public Image waterMeter;
     public float waterLossRate = 0.1f;
     private float realValue = 1f;
+    private bool isStopped = true;
 
     void Awake()
     {
@@ -25,6 +26,7 @@ public class WaterMeter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isStopped) return;
         realValue -= waterLossRate * Time.deltaTime;
         waterMeter.fillAmount = realValue;
 
@@ -55,5 +57,10 @@ public class WaterMeter : MonoBehaviour
     public float GetWater()
     {
         return realValue;
+    }
+
+    public void StartMeter()
+    {
+        isStopped = false;
     }
 }

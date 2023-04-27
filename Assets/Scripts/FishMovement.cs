@@ -51,6 +51,7 @@ public class FishMovement : MonoBehaviour
                 Vector2 clickEnd = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 Vector2 direction = clickEnd - clickStart.Value;
                 GetComponent<Rigidbody2D>().AddForce(direction * maxLaunchForce);
+                WaterMeter.instance.StartMeter();
                 canLaunch = false;
                 arrowLine.enabled = false;
                 clickStart = null;
