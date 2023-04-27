@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CutsceneZone : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class CutsceneZone : MonoBehaviour
     public List<string> lines;
     public List<Transform> focusObjects;
     public float timeBetweenLines = 4f;
+    public UnityEvent onCutsceneEnd;
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
@@ -30,7 +32,8 @@ public class CutsceneZone : MonoBehaviour
             yield return new WaitForSeconds(timeBetweenLines);
         }
         FishMovement.instance.allowInput = true;
-        Destroy(gameObject);
         Camera.main.GetComponent<PlayerCamera>().followTransform = FishMovement.instance.transform;
+        onCutsceneEnd.Invoke();
+        Destroy(gameObject);
     }
 }
