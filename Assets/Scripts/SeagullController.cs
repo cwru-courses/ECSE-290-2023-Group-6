@@ -14,12 +14,11 @@ public class SeagullController : MonoBehaviour
     public Sprite flying;
     public Sprite attacking;
 
-
-    private List<Transform> reversePath;
     private PolygonCollider2D detector;
     private SeagullTalons talons;
     private Sprite sprite;
     private Transform home;
+    private Transform dest;
     public Vector3 curTarget;
 
     public enum State
@@ -37,7 +36,7 @@ public class SeagullController : MonoBehaviour
     {
         state = State.searching;
         home = path[0];
-        reversePath = Enumerable.Reverse(path).ToList();
+        dest = path.Last();
         detector = GetComponent<PolygonCollider2D>();
         talons = GetComponentInChildren<SeagullTalons>();
         sprite = Seagull.GetComponent<SpriteRenderer>().sprite;
@@ -67,12 +66,15 @@ public class SeagullController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Spit") {
+        if (other.gameObject.tag == "Spit") 
+        {
             state = State.returning;
-        } else if (other.gameObject.tag == "Player" && state == State.searching)
+        } 
+        else if (other.gameObject.tag == "Player" && state == State.searching)
         {
             state = State.attacking;
-            SoundManager.instance.Caw();
+            if (SoundManager.instance)
+                SoundManager.instance.Caw();
         }
     }
 
@@ -81,6 +83,12 @@ public class SeagullController : MonoBehaviour
         if (other.gameObject.tag == "Player" && state == State.attacking)
         {
             curTarget = other.transform.position - talons.transform.localPosition;
+        }
+        else if (other.gameObject.tag == "Player" && state == State.searching)
+        {
+            state = State.attacking;
+            if (SoundManager.instance)
+                SoundManager.instance.Caw();
         }
     }
 
@@ -109,21 +117,15 @@ public class SeagullController : MonoBehaviour
     {
         Seagull.GetComponent<SpriteRenderer>().sprite = attacking;
         MoveToPoint(curTarget, attackSpeed);
-        if (Vector3.Distance(transform.position, curTarget) < 0.1f)
-        {
-            state = State.carrying;
-            pathIndex = 1;
-        }
     }
 
-    // Flies to the left. If fish escapes or the level beginning is reached, set state to return
+    // Flies to the left. If fish escapes talons or the end of the path is reached, set state to return
     void CarryingAction()
     {
         FollowPath(path, attackSpeed);
-        if (Vector3.Distance(transform.position, path.Last().position) < 0.1f)
+        if (Vector3.Distance(transform.position, dest.position) < 0.1f)
         {
             state = State.returning;
-            pathIndex = 0;
         }
     }
 
@@ -131,10 +133,11 @@ public class SeagullController : MonoBehaviour
     void ReturningAction()
     {
         Seagull.GetComponent<SpriteRenderer>().sprite = flying;
-        FollowPath(reversePath, returnSpeed);
+        MoveToPoint(home.position, returnSpeed);
         talons.Disengage();
         if (Vector3.Distance(transform.position, home.position) < 0.1f)
         {
+            curTarget = home.position;
             state = State.searching;
             talons.Engage();
             pathIndex = 1;

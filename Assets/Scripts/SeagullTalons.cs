@@ -16,11 +16,10 @@ public class SeagullTalons : MonoBehaviour
         gripForce = grip.forceMagnitude;
     }
 
-    public void Update()
+    void OnTriggerStay2D(Collider2D other)
     {
-        if (Vector3.Distance(FishMovement.instance.transform.position, transform.position) < engageThreshold && seagull.state == SeagullController.State.attacking)
+        if (other.gameObject.tag == "Player" && seagull.state == SeagullController.State.attacking)
         {
-            seagull.curTarget = seagull.AroundHome();
             seagull.state = SeagullController.State.carrying;
         }
     }
