@@ -7,7 +7,6 @@ public class SeagullTalons : MonoBehaviour
     private SeagullController seagull;
     private PointEffector2D grip;
     private float gripForce;
-    private float engageThreshold = 0.1f;
 
     void Start()
     {
@@ -18,6 +17,8 @@ public class SeagullTalons : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D other)
     {
+        FishMovement.instance.AllowLaunch();
+
         if (other.gameObject.tag == "Player" && seagull.state == SeagullController.State.attacking)
         {
             seagull.state = SeagullController.State.carrying;
