@@ -57,13 +57,16 @@ public class LevelManager : MonoBehaviour
         if (PlayerPrefs.GetFloat(CurrentSceneName() + "_BestTime", Mathf.Infinity) > timeElapsed)
             PlayerPrefs.SetFloat(CurrentSceneName() + "_BestTime", timeElapsed);
 
+        SoundManager.instance.Win();
         Debug.Log("You win!");
     }
 
     public void Lose() {
+        if (winScreen.activeSelf) return;
         StopTimer();
         loseScreen.SetActive(true);
         FishMovement.instance.allowInput = false;
+        SoundManager.instance.Lose();
         Debug.Log("You lose!");
     }
 

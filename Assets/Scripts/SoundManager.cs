@@ -9,6 +9,10 @@ public class SoundManager : MonoBehaviour
     public AudioSource spitSound;
     public AudioSource popSound;
     public AudioSource eagleSound;
+    public AudioSource winSound;
+    public AudioSource loseSound;
+
+
     public AudioSource musicSource;
     public List<AudioClip> music;
     private int currentMusic = 0;
@@ -49,6 +53,16 @@ public class SoundManager : MonoBehaviour
     public void Caw()
     {
         eagleSound.Play();
+    }
+
+    public void Win()
+    {
+        winSound.Play();
+    }
+
+    public void Lose()
+    {
+        loseSound.Play();
     }
 
     public void PlayMusic(int index) {
