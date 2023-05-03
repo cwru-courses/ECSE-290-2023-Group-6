@@ -50,6 +50,7 @@ public class LevelManager : MonoBehaviour
     }
 
     public void Win() {
+        if (winScreen.activeSelf || loseScreen.activeSelf) return;
         StopTimer();
         winScreen.SetActive(true);
         FishMovement.instance.allowInput = false;
@@ -62,7 +63,7 @@ public class LevelManager : MonoBehaviour
     }
 
     public void Lose() {
-        if (winScreen.activeSelf) return;
+        if (winScreen.activeSelf || loseScreen.activeSelf) return;
         StopTimer();
         loseScreen.SetActive(true);
         FishMovement.instance.allowInput = false;
