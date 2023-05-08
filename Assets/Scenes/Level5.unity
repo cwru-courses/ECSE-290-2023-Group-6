@@ -1576,7 +1576,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   followTransform: {fileID: 163660449}
-  smoothSpeed: 0.03
+  smoothSpeed: 0.05
   lowerBound: 0
   pauseMenu: {fileID: 1989798977}
 --- !u!114 &306325994
@@ -7580,7 +7580,7 @@ Transform:
   m_Father: {fileID: 766486657}
   m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!43 &1659235815
+--- !u!43 &1658378478
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
